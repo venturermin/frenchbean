@@ -22,7 +22,7 @@ import com.bumslap.bum.R;
  */
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-    ArrayList<com.bumslap.bum.DB.Menu> menulist;
+    ArrayList<Menu> menulist;
     public Menu menu;
     public DBProvider db;
     int layout;

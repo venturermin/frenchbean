@@ -22,7 +22,7 @@ public class OrderWrapAdapter extends RecyclerView.Adapter<OrderWrapAdapterViewH
 
     private ArrayList<OrderWrapDataSet> orderarrayList;
     private Context orderwrapcontext;
-    private int position = 0;
+    private int Billnumberposition;
 
     public OrderWrapAdapter(ArrayList<OrderWrapDataSet> orderarrayList, Context context){
         this.orderarrayList = orderarrayList;
@@ -34,28 +34,30 @@ public class OrderWrapAdapter extends RecyclerView.Adapter<OrderWrapAdapterViewH
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.order_bills_layout, parent, false);
         final OrderWrapAdapterViewHolder viewHolder = new OrderWrapAdapterViewHolder(view);
 
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                position = viewHolder.getAdapterPosition();
-            }
-        });
-
 
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(OrderWrapAdapterViewHolder holder, final int position) {
+    public void onBindViewHolder(OrderWrapAdapterViewHolder holder,  int position) {
 
         final String billtitlenumber = orderarrayList.get(position).getBillTitleNumber();
         ArrayList billAllData = orderarrayList.get(position).getBillAllData();
 
         holder.orderbilltitlenumber.setText(billtitlenumber);
-        OrderMenuSelectAdapter orderMenuSelectAdapter = new OrderMenuSelectAdapter(billAllData, orderwrapcontext);
 
-        holder.orderbilllistrecyclerView.setLayoutManager(new LinearLayoutManager(orderwrapcontext, LinearLayoutManager.VERTICAL, false));
-        holder.orderbilllistrecyclerView.setAdapter(orderMenuSelectAdapter);
+        OrderMenuSelectAdapter orderMenuSelectAdapter = new OrderMenuSelectAdapter(billAllData, orderwrapcontext);
+        try{
+            int a= Integer.parseInt(orderarrayList.get(position).getBillTitleNumber());
+
+            if (Integer.parseInt(orderarrayList.get(position).getBillTitleNumber()) == position){
+                holder.orderbilllistrecyclerView.setLayoutManager(new LinearLayoutManager(orderwrapcontext, LinearLayoutManager.VERTICAL, false));
+                holder.orderbilllistrecyclerView.setAdapter(orderMenuSelectAdapter);
+            }
+            }
+            catch (Exception ex){}
+        //holder.orderbilllistrecyclerView.setLayoutManager(new LinearLayoutManager(orderwrapcontext, LinearLayoutManager.VERTICAL, false));
+        //holder.orderbilllistrecyclerView.setAdapter(orderMenuSelectAdapter);
 
 
     }
@@ -73,11 +75,11 @@ class OrderWrapAdapterViewHolder extends RecyclerView.ViewHolder{
 
     public RecyclerView orderbilllistrecyclerView;
     public TextView orderbilltitlenumber;
-    public CardView orderbillcardview;
+    //public CardView orderbillcardview;
     public OrderWrapAdapterViewHolder(View view){
 
         super(view);
-        orderbillcardview = (CardView)view.findViewById(R.id.order_bill_cardview);
+        //orderbillcardview = (CardView)view.findViewById(R.id.order_bill_cardview);
         orderbilltitlenumber = (TextView)view.findViewById(R.id.BillNumber);
         orderbilllistrecyclerView = (RecyclerView)view.findViewById(R.id.Bill_order_list);
 

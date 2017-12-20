@@ -2,7 +2,6 @@ package com.bumslap.bum.order;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import com.bumslap.bum.DB.Order;
 import com.bumslap.bum.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by oyoun on 17. 12. 18.
@@ -27,7 +25,7 @@ public class OrderMenuSelectAdapter extends RecyclerView.Adapter<OrderMenuViewHo
     String MenunameDB;
     int i, j, k = 0;
 
-    /*public OrderMenuSelectAdapter(ArrayList<Order> orderArrayList, Context context) {
+    public OrderMenuSelectAdapter(ArrayList<Order> orderArrayList, Context context) {
         try {
             k = orderArrayList.size();
             for (i = 0; i < orderArrayList.size(); i++) {
@@ -49,7 +47,7 @@ public class OrderMenuSelectAdapter extends RecyclerView.Adapter<OrderMenuViewHo
 
         this.Menuitems = orderArrayList;
         this.context = context;
-    }*/
+    }
 
     @Override
     public OrderMenuViewHoler onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -60,7 +58,7 @@ public class OrderMenuSelectAdapter extends RecyclerView.Adapter<OrderMenuViewHo
         return new OrderMenuViewHoler(v);
     }
 
-    /*@Override
+    @Override
     public void onBindViewHolder(OrderMenuViewHoler holder, int position) {
         dBforAnalysis = new DBforAnalysis(context, "menu2.db", null, 6);
         Order menuitem = Menuitems.get(position);
@@ -78,7 +76,7 @@ public class OrderMenuSelectAdapter extends RecyclerView.Adapter<OrderMenuViewHo
         return (null != Menuitems ? Menuitems.size() : 0);
     }
 
-}*/
+}
 
 class OrderMenuViewHoler extends RecyclerView.ViewHolder{
 

@@ -13,10 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".POSproject.SignUpActivity" />
-        <activity android:name=".order.OrderActivity" />
-        <activity android:name=".menuedit.MenuUpdateActivity" />
-        <activity android:name=".menuedit.MenuSettingActivity" />
-        <activity android:name=".menuedit.CostSettingActivity" />
         <activity android:name=".settings.UserSettingActivity" />
         <activity android:name=".POSproject.SignInActivity">
             <intent-filter>

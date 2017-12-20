@@ -185,8 +185,8 @@ public class MenuSettingActivity extends AppCompatActivity implements GestureDet
 
 
     public static interface ClickListener{
-        public void onClick(View view,int position);
-        public void onLongClick(View view,int position);
+        public void onClick(View view, int position);
+        public void onLongClick(View view, int position);
     }
     class RecyclerTouchListener implements RecyclerView.OnItemTouchListener{
         private ClickListener clicklistener;
