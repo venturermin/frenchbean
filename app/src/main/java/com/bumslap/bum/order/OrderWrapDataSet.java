@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 
 public class OrderWrapDataSet {
-    private String BillTitleNumber="ll";
+    private String BillTitleNumber;
     private ArrayList BillAllData;
 
     public OrderWrapDataSet(){
@@ -27,6 +27,6 @@ public class OrderWrapDataSet {
     }
 
     public void setBillTitleNumber(String billTitleNumber){
-        this.BillTitleNumber = BillTitleNumber;
+        this.BillTitleNumber = billTitleNumber;
     }
 }

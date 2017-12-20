@@ -1,9 +1,11 @@
 package com.bumslap.bum.order;
 
 import android.annotation.SuppressLint;
+
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -11,26 +13,34 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+
 import android.widget.Toast;
 
+
 import com.bumslap.bum.DB.DBHelper;
+import com.bumslap.bum.DB.DBProvider;
 import com.bumslap.bum.DB.DBforAnalysis;
 import com.bumslap.bum.DB.MenuListAdapter;
 import com.bumslap.bum.DB.Order;
 import com.bumslap.bum.POSproject.MainActivity;
 import com.bumslap.bum.R;
+
+
 import com.bumslap.bum.menuedit.MenuSettingActivity;
 import com.bumslap.bum.settings.UserSettingActivity;
 import com.bumslap.bum.statistics.BarChartActivity;
 import com.bumslap.bum.statistics.SalesStatus2Activity;
+
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -38,20 +48,21 @@ import java.util.Date;
 import java.util.HashMap;
 
 
-public class OrderActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+public class OrderActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     Intent intent;
     GridView gridView;
     ArrayList<com.bumslap.bum.DB.Menu> Menulist;
-    com.bumslap.bum.DB.MenuListAdapter menuListAdapter = null;
+    MenuListAdapter menuListAdapter = null;
 
     RecyclerView billRecyclerView;
     RecyclerView.Adapter Adapter;
     RecyclerView.LayoutManager layoutManager;
     ArrayList<RealtimeOrder> Billordermenu;
-
-
-    ClickableViewPager pager;
+    OrderMenuSelectAdapter orderMenuSelectAdapter;
+    DBProvider db;
 
     String str_device;
     public static DBHelper dbforAnalysis;
@@ -59,15 +70,25 @@ public class OrderActivity extends AppCompatActivity implements NavigationView.O
     ArrayList<HashMap<String, Integer>> OrderList;
     HashMap<String, Integer> Ordermap;
 
+    ArrayList<HashMap<String, ArrayList<Order>>> Order_menu_List_toWrap;
+    HashMap<String, ArrayList<Order>> toWrapmap;
+
     ArrayList<Order> Order_menu_List;
     long CurrentTimeCall;
     Date CurrentDateCall;
     SimpleDateFormat CurrentDate;
-    String CureentTime;
+    SimpleDateFormat CurrentTimeS;
+    String CurrentTime;
     int Order_Amount;
-    OrderListAdapter orderListAdapter;
+
+    ArrayList<OrderWrapDataSet> orderwraplist;
+    OrderWrapAdapter orderWrapAdapter;
+    OrderWrapDataSet orderWrapDataSet;
 
     DBforAnalysis newdbforAnalysis;
+
+    int billnumberposition=0;
+
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,7 +98,6 @@ public class OrderActivity extends AppCompatActivity implements NavigationView.O
         setContentView(R.layout.activity_order);
         // setContentView()가 호출되기 전에 setRequestedOrientation()이 호출되어야 함
         //setTitle("오늘도 달려 보세");
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         gridView = (GridView) findViewById(R.id.gridview);
@@ -86,100 +106,148 @@ public class OrderActivity extends AppCompatActivity implements NavigationView.O
 
         menuListAdapter = new MenuListAdapter(this, R.layout.order_menu_item, Menulist);
         gridView.setAdapter(menuListAdapter);
-        //dbforAnalysis = new DBHelper(getApplicationContext(), "menu2.db", null, 1);
+        db = new DBProvider(this);
+        db.open();
+        dbforAnalysis = new DBHelper(this);
 
         newdbforAnalysis = new DBforAnalysis(this, "POS.db", null,1);
+        try {
+            Cursor cursor = db.getData("SELECT * FROM MENU_TABLE");
+            Menulist.clear();
+            while (cursor.moveToNext()){
+                String id = cursor.getString(0);
+                String name = cursor.getString(1);
+                String price = cursor.getString(2);
+                String cost = cursor.getString(3);
+                byte[] image = cursor.getBlob(4);
 
-        /*Cursor cursor = dbforAnalysis.getData("SELECT * FROM MENU_TABLE");
-        Menulist.clear();
-        while (cursor.moveToNext()){
-            int id = cursor.getInt(0);
-            String name = cursor.getString(1);
-            String price = cursor.getString(2);
-            String cost = cursor.getString(3);
-            byte[] image = cursor.getBlob(4);
-
-            Menulist.add(new com.bumslap.bum.DB.Menu(id, name, image, price, cost));
+                Menulist.add(new com.bumslap.bum.DB.Menu(id, name, image, price, cost));
+            }
+        }catch (NullPointerException e){
         }
         menuListAdapter.notifyDataSetChanged();
-        Billordermenu = new ArrayList<>();*/
+
+        Billordermenu = new ArrayList<>();
 
 
         //binding.recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
         //binding.recyclerView.scrollToPosition(itemClass.size() - 1);
 
-        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 
-        //billRecyclerView = (RecyclerView) findViewById(R.id.list_order);
-        //billRecyclerView.setLayoutManager(layoutManager);
+        billRecyclerView = (RecyclerView) findViewById(R.id.order_recycler);
+        /*
+        layoutManager = new LinearLayoutManager(getApplicationContext()); //, LinearLayoutManager.HORIZONTAL, false
+        Adapter = new OrderMenuSelectAdapter(Order_menu_List, getApplicationContext());
+        billRecyclerView.setLayoutManager(layoutManager);
+        billRecyclerView.setAdapter(Adapter);
+        */
+        layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false); //, LinearLayoutManager.HORIZONTAL, false
+        orderWrapAdapter = new OrderWrapAdapter(orderwraplist, getApplicationContext());
+        billRecyclerView.setLayoutManager(layoutManager);
+        billRecyclerView.setAdapter(orderWrapAdapter);
 
-        //pager = (ViewPager) findViewById(R.id.order_pager);
-
-
-
-/*
-        pager.setOnTouchListener(new ViewPager.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                pager.SCROLL_INDICATOR_RIGHT.
-                return false;
-            }
-        });
-*/
-      /*
-      pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-            int i = position;
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-*/
         OrderList = new ArrayList<HashMap<String, Integer>>();
         Ordermap = null;
         Ordermap = new HashMap<String, Integer>();
+        Order_menu_List = new ArrayList<Order>();
 
-        //pager.SimpleOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
+        Order_menu_List_toWrap = new ArrayList<HashMap<String, ArrayList<Order>>>();
+        toWrapmap = new HashMap<String, ArrayList<Order>>();
 
-        //});
+        orderWrapDataSet = new OrderWrapDataSet();
+        OrderWrapDataSet orderWrapDataSet1 = new OrderWrapDataSet();
+        orderWrapDataSet1.setBillTitleNumber("asdas");
+        orderwraplist = new ArrayList<OrderWrapDataSet>();
+
+
+
+        layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false); //, LinearLayoutManager.HORIZONTAL, false
+        orderWrapAdapter = new OrderWrapAdapter(orderwraplist, getApplicationContext());
+        billRecyclerView.setLayoutManager(layoutManager);
+        billRecyclerView.setAdapter(orderWrapAdapter);
+
+
+
+
+        billRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                if (e.getAction() == MotionEvent.ACTION_DOWN){
+                    View reV = rv.findChildViewUnder(e.getX(), e.getY());
+                    billnumberposition = rv.getChildAdapterPosition(reV);
+                    Toast.makeText(getApplicationContext(), String.valueOf(billnumberposition) , Toast.LENGTH_LONG).show();
+                }
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+        });
+
+
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id){
 
-                String Menu = Menulist.get(position).getMenu_name().toString();
+                String MenuID = Menulist.get(position).getMenu_id();
+
                 String Price = Menulist.get(position).getMenu_price().toString();
-                Billordermenu.add(new RealtimeOrder(Menu));
                 int Amount;
 
                 //billRecyclerView.setLayoutManager(layoutManager);
                 //billRecyclerView.setItemAnimator(new DefaultItemAnimator());
-                Adapter = new BillAdapter(Billordermenu);
+
                 // billRecyclerView.setAdapter(Adapter);
                 //billRecyclerView.smoothScrollBy(200, 100);
-                Toast.makeText(getApplicationContext(),""+position+"  "+Menu+" "+Price,Toast.LENGTH_LONG).show();
-                if(Ordermap.get(Menu)==null){
-                    Ordermap.put(Menu, 0);
+                Toast.makeText(getApplicationContext(),""+position+"  "+MenuID+" "+Price,Toast.LENGTH_LONG).show();
+                if(Ordermap.get(MenuID)==null){
+                    Ordermap.put(MenuID, 0);
                 }
-                Amount = Ordermap.get(Menu);
-                Ordermap.put(Menu, ++Amount);
+                Amount = Ordermap.get(MenuID);
+                Ordermap.put(MenuID, ++Amount);
                 OrderList.add(Ordermap);
                 CurrentTimeCall = System.currentTimeMillis();
                 CurrentDateCall = new Date(CurrentTimeCall);
                 CurrentDate = new SimpleDateFormat("yyyy-MM-dd");
-                CureentTime = CurrentDate.format(CurrentDateCall);
-                Order_Amount = Ordermap.get(Menu);
+                CurrentTimeS = new SimpleDateFormat("hh-mm-ss");
+                CurrentTime = CurrentDate.format(CurrentDateCall);
+                Order_Amount = Ordermap.get(MenuID);
 
-                Order_menu_List = new ArrayList<>();
-                orderListAdapter = new OrderListAdapter(Order_menu_List, getApplicationContext());
+                //billnumberposition = orderWrapAdapter.getBillnumberposition();
+
+                // orderMenuSelectAdapter.add(new Order(String.valueOf(Amount),CurrentTime,CurrentTime, MenuID,"no"));
+                //Adapter = new OrderMenuSelectAdapter();
+                Order_menu_List.add(new Order(String.valueOf(Amount),CurrentDate.toString(),CurrentTimeS.toString(), MenuID,String.valueOf(billnumberposition)));
+
+                String bp = String.valueOf(billnumberposition);
+                toWrapmap.put(bp, Order_menu_List);
+                Order_menu_List_toWrap.add(toWrapmap);
+                Order_menu_List=toWrapmap.get(bp);
+                orderWrapDataSet.setBillAllData(Order_menu_List);
+                orderWrapDataSet.setBillTitleNumber(bp);
+                orderwraplist.add(orderWrapDataSet);
+
+
+
+
+                layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false); //, LinearLayoutManager.HORIZONTAL, false
+                orderWrapAdapter = new OrderWrapAdapter(orderwraplist, getApplicationContext());
+                billRecyclerView.setLayoutManager(layoutManager);
+                billRecyclerView.setAdapter(orderWrapAdapter);
+
+/*
+                layoutManager = new LinearLayoutManager(getApplicationContext()); //, LinearLayoutManager.HORIZONTAL, false
+                Adapter = new OrderMenuSelectAdapter(Order_menu_List, getApplicationContext());
+                billRecyclerView.setLayoutManager(layoutManager);
+                billRecyclerView.setAdapter(Adapter);
+*/
 
             }
         });
@@ -193,10 +261,6 @@ public class OrderActivity extends AppCompatActivity implements NavigationView.O
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
-
-
-
-
 
     @Override
     public void onPause(){
