@@ -101,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
         BtnStart = (ImageButton)findViewById(R.id.button_Start);
         BtnStart.setOnClickListener(BtnClick);
 
