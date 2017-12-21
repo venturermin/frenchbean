@@ -234,21 +234,17 @@ public class OrderActivity extends AppCompatActivity
                 orderWrapDataSet.setBillTitleNumber(bp);
                 orderwraplist.add(orderWrapDataSet);
 
-
-
-
                 layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false); //, LinearLayoutManager.HORIZONTAL, false
                 orderWrapAdapter = new OrderWrapAdapter(orderwraplist, getApplicationContext());
                 billRecyclerView.setLayoutManager(layoutManager);
                 billRecyclerView.setAdapter(orderWrapAdapter);
 
-/*
+                /*
                 layoutManager = new LinearLayoutManager(getApplicationContext()); //, LinearLayoutManager.HORIZONTAL, false
                 Adapter = new OrderMenuSelectAdapter(Order_menu_List, getApplicationContext());
                 billRecyclerView.setLayoutManager(layoutManager);
                 billRecyclerView.setAdapter(Adapter);
-*/
-
+                */
             }
         });
 

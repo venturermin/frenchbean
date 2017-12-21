@@ -100,11 +100,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FontFuntion fontFuntion = new FontFuntion();
-        mTypeface = Typeface.createFromAsset(getAssets(), "fonts/NanumSquareRoundL.ttf");
-        ViewGroup root = (ViewGroup) findViewById(android.R.id.content);
-        fontFuntion.setGlobalFont(root,mTypeface);
-
 
         BtnStart = (ImageButton)findViewById(R.id.button_Start);
         BtnStart.setOnClickListener(BtnClick);
@@ -121,10 +116,7 @@ public class MainActivity extends AppCompatActivity {
         dbHelper = new DBforAnalysis(this, "test.db", null,1);
         mdb = dbHelper.getWritableDatabase();
 
-
     }
-
-
 
     ImageButton.OnClickListener BtnClick = new View.OnClickListener() {
         @Override
@@ -154,11 +146,5 @@ public class MainActivity extends AppCompatActivity {
     public static float dpToPixels(int dp, Context context) {
         return dp * (context.getResources().getDisplayMetrics().density);
     }
-
-
-
-
-
-
 }
 
