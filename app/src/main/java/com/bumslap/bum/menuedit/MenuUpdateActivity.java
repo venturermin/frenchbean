@@ -23,11 +23,14 @@ import com.bumslap.bum.DB.DBHelper;
 import com.bumslap.bum.DB.DBProvider;
 import com.bumslap.bum.DB.Menu;
 import com.bumslap.bum.R;
+import com.bumslap.bum.order.OrderActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
+
+import static com.kakao.usermgmt.StringSet.id;
 
 public class MenuUpdateActivity extends AppCompatActivity {
     Button UpdateBTN;
@@ -36,14 +39,14 @@ public class MenuUpdateActivity extends AppCompatActivity {
     FloatingActionButton UpdateMenuImageBTN;
     int IMAGE_CAPTURE = 1;
     Context context = this;
-    ArrayList<Menu> menulist;
+    ArrayList<com.bumslap.bum.DB.Menu> menulist;
     public Bitmap Bitmapimage;
 
     public static DBHelper dbforAnalysis;
     public static DBProvider db;
 
     Menu menu;
-    int integerId;
+    String stringId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,12 +63,18 @@ public class MenuUpdateActivity extends AppCompatActivity {
         UpdateMenuImageBTN.setOnClickListener(changeimage);
         UpdateBTN.setOnClickListener(UpdateMenu);
 
-        Intent intent = getIntent();
-        String id = intent.getExtras().getString("id");
-        integerId = Integer.parseInt(id);
 
-        //select 호출 메소드
-        retrieve();
+        Bundle bundle = getIntent().getExtras();
+        stringId = bundle.getString("id","NO DATA");
+
+        if(stringId == "NO DATA"){
+            menulist.clear();
+            Toast.makeText(context, "인텐트 석세스" +bundle.getString("id","NO DATA"),Toast.LENGTH_LONG).show();        }
+        else{
+            retrieve(stringId);
+            Toast.makeText(context, "인텐트 석세스" + bundle.getString("id","DATA"),Toast.LENGTH_LONG).show();
+        }
+
     }
 
     private void init() {
@@ -81,13 +90,16 @@ public class MenuUpdateActivity extends AppCompatActivity {
 
     }
 
-    private void retrieve()
+    private void retrieve(String stringId)
     {
 
-        //db.getIdData("SELECT * FROM MENU_TABLE",id);
-       Cursor cursor =  db.getData("SELECT * FROM MENU_TABLE WHERE ID");
+        //Intent intent = getIntent();
+        //String idid = intent.getExtras().getString("id");
+        //integerId = Integer.parseInt(id);
+
+        Cursor cursor =  db.getData("SELECT * FROM MENU_TABLE WHERE ID = " + stringId + ";");
         menulist.clear();
-       while (cursor.moveToPosition(integerId)){
+        while (cursor.moveToNext()){
             String id = cursor.getString(0);
             String name = cursor.getString(1);
             String price = cursor.getString(2);
@@ -97,7 +109,7 @@ public class MenuUpdateActivity extends AppCompatActivity {
             menulist.add(new com.bumslap.bum.DB.Menu(id, name, image, price, cost));
 
             //byte[] to bitmap in DBProvider.class
-            db.byteArrayToBitmap(image);
+            Bitmapimage = db.byteArrayToBitmap(image);
 
             UpdateMenuImage.setImageBitmap(Bitmapimage);
             UpdateMenuName.setText(name);
@@ -105,31 +117,58 @@ public class MenuUpdateActivity extends AppCompatActivity {
             UpdateMenuCost.setText(cost);
 
         }
-        //notifyDataSetChanged();
+
     }
 
 
     Button.OnClickListener UpdateMenu = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            try {
-                db.insertData(
-                        UpdateMenuName.getText().toString().trim(),
-                        UpdateMenuPrice.getText().toString().trim(),
-                        UpdateMenuCost.getText().toString().trim(),
-                        imgaeViewToByte(UpdateMenuImage)
-                );
+            switch(stringId){
+                case "NO DATA":
+                    try {
+                        db.insertData(
+                                UpdateMenuName.getText().toString().trim(),
+                                UpdateMenuPrice.getText().toString().trim(),
+                                UpdateMenuCost.getText().toString().trim(),
+                                imgaeViewToByte(UpdateMenuImage)
+                        );
 
-                Toast.makeText(getApplicationContext(), "메뉴 등록 완료", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "메뉴 등록 완료", Toast.LENGTH_LONG).show();
 
-                Intent intent = new Intent(getApplicationContext(), MenuSettingActivity.class);
-                startActivity(intent);
+                        Intent intent = new Intent(getApplicationContext(), MenuSettingActivity.class);
+                        startActivity(intent);
 
-            } catch (Exception e) {
-                e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+
+                default:
+                    try {
+                        db.updateData(
+                                UpdateMenuName.getText().toString().trim(),
+                                UpdateMenuPrice.getText().toString().trim(),
+                                UpdateMenuCost.getText().toString().trim(),
+                                imgaeViewToByte(UpdateMenuImage),
+                                stringId
+                        );
+
+                        Toast.makeText(getApplicationContext(), "메뉴 등록 완료", Toast.LENGTH_LONG).show();
+
+                        Intent intent = new Intent(getApplicationContext(), MenuSettingActivity.class);
+                        startActivity(intent);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
             }
+
+
         }
+
+
     };
+
     Button.OnClickListener changeimage = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -169,7 +208,7 @@ public class MenuUpdateActivity extends AppCompatActivity {
                         }
                     }
 
-                    );
+            );
 
             // 다이얼로그 생성
             android.app.AlertDialog alertDialog = alertDialogBuilder.create();
@@ -209,14 +248,14 @@ public class MenuUpdateActivity extends AppCompatActivity {
 
 
 
-        private byte[] imgaeViewToByte(ImageView image) {
-            Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            byte[] byteArray = stream.toByteArray();
-            return byteArray;
-
-        }
+    private byte[] imgaeViewToByte(ImageView image) {
+        Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        return byteArray;
 
     }
+
+}
 

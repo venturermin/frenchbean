@@ -54,7 +54,22 @@ public class DBProvider {
 
         statement.executeInsert();
     }
+    public void updateData(String name, String price, String cost, byte[] image, String id){
+        db = dbHelper.getWritableDatabase();
+        String sql = "UPDATE MENU_TABLE SET NAME = ?, PRICE = ?, COST = ?, IMAGE = ? WHERE ID = ?;";
 
+        SQLiteStatement statement = db.compileStatement(sql);
+
+        statement.clearBindings();
+
+        statement.bindString(1, name);
+        statement.bindString(2, price);
+        statement.bindString(3, cost);
+        statement.bindBlob(4, image);
+        statement.bindString(5, id);
+
+        statement.executeInsert();
+    }
     public void deleteData(String id) {
         //String sql = "DELETE FROM MENU_TABLE WHERE id = ?";
         //SQLiteStatement statement = db.compileStatement(sql);

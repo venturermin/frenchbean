@@ -32,7 +32,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     RecyclerView.Adapter mMyadapter;
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager mLayoutManager;
-
+    MenuSettingActivity menuSettingActivity;
     public MyAdapter(DBProvider db, int layout, ArrayList<Menu> menulist) {
         //ASSIGN THEM LOCALLY
         this.db = db;
@@ -70,7 +70,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         holder.mImageView.setImageBitmap(bitmap);
 
-        holder.mTextUniqueId.setOnClickListener(new View.OnClickListener() {
+        holder.mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final CharSequence[] items = {"수정", "삭제"};
@@ -90,14 +90,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                                     case 0:
                                     Intent intent = new Intent(context, MenuUpdateActivity.class);
                                     intent.putExtra("id",menulist.get(position).getMenu_id());
-
                                     context.startActivity(intent);
 
                                         break;
                                     case 1:
+                                        menuSettingActivity = new MenuSettingActivity();
                                         db.deleteData(menulist.get(position).getMenu_id());
-                                        Toast.makeText(context, "Data deleted", Toast.LENGTH_LONG).show();
-                                        notifyItemRemoved(position);
+                                        //Toast.makeText(context, "Data deleted", Toast.LENGTH_LONG).show();
+                                        //notifyItemChanged(position);
                                         break;
 
                                 }
