@@ -1,11 +1,9 @@
 package com.bumslap.bum.order;
 
 import android.annotation.SuppressLint;
-
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.database.Cursor;
-
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -13,7 +11,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -22,10 +19,9 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
-
 import android.widget.Toast;
-
 
 import com.bumslap.bum.DB.DBHelper;
 import com.bumslap.bum.DB.DBProvider;
@@ -34,19 +30,15 @@ import com.bumslap.bum.DB.MenuListAdapter;
 import com.bumslap.bum.DB.Order;
 import com.bumslap.bum.POSproject.MainActivity;
 import com.bumslap.bum.R;
-
-
 import com.bumslap.bum.menuedit.MenuSettingActivity;
 import com.bumslap.bum.settings.UserSettingActivity;
 import com.bumslap.bum.statistics.BarChartActivity;
 import com.bumslap.bum.statistics.SalesStatus2Activity;
 
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-
 
 
 public class OrderActivity extends AppCompatActivity
@@ -55,7 +47,7 @@ public class OrderActivity extends AppCompatActivity
     Intent intent;
     GridView gridView;
     ArrayList<com.bumslap.bum.DB.Menu> Menulist;
-    MenuListAdapter menuListAdapter = null;
+    com.bumslap.bum.DB.MenuListAdapter menuListAdapter = null;
 
     RecyclerView billRecyclerView;
     RecyclerView.Adapter Adapter;
@@ -89,6 +81,7 @@ public class OrderActivity extends AppCompatActivity
 
     int billnumberposition=0;
 
+    Button addpositionBTN;
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -98,7 +91,7 @@ public class OrderActivity extends AppCompatActivity
         setContentView(R.layout.activity_order);
         // setContentView()가 호출되기 전에 setRequestedOrientation()이 호출되어야 함
         //setTitle("오늘도 달려 보세");
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         gridView = (GridView) findViewById(R.id.gridview);
 
@@ -129,9 +122,20 @@ public class OrderActivity extends AppCompatActivity
 
         Billordermenu = new ArrayList<>();
 
+        addpositionBTN = (Button)findViewById(R.id.addpositionBTN);
+
+        addpositionBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                billnumberposition = orderwraplist.size()-1;
+                billnumberposition++;
+            }
+        });
 
         //binding.recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));
         //binding.recyclerView.scrollToPosition(itemClass.size() - 1);
+
 
 
         billRecyclerView = (RecyclerView) findViewById(R.id.order_recycler);
@@ -152,6 +156,7 @@ public class OrderActivity extends AppCompatActivity
         Order_menu_List = new ArrayList<Order>();
 
         Order_menu_List_toWrap = new ArrayList<HashMap<String, ArrayList<Order>>>();
+        toWrapmap = null;
         toWrapmap = new HashMap<String, ArrayList<Order>>();
 
         orderWrapDataSet = new OrderWrapDataSet();
@@ -195,11 +200,15 @@ public class OrderActivity extends AppCompatActivity
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id){
-
+                //Order_menu_List.clear();
+                //orderwraplist.clear();
+                //orderwraplist = new ArrayList<OrderWrapDataSet>();
+                Order_menu_List = new ArrayList<Order>();
+                orderWrapDataSet = new OrderWrapDataSet();
                 String MenuID = Menulist.get(position).getMenu_id();
 
-                String Price = Menulist.get(position).getMenu_price().toString();
-                int Amount;
+                String Price = Menulist.get(position).getMenu_price();
+                int Amount=0;
 
                 //billRecyclerView.setLayoutManager(layoutManager);
                 //billRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -210,8 +219,23 @@ public class OrderActivity extends AppCompatActivity
                 if(Ordermap.get(MenuID)==null){
                     Ordermap.put(MenuID, 0);
                 }
-                Amount = Ordermap.get(MenuID);
-                Ordermap.put(MenuID, ++Amount);
+                String bp = String.valueOf(billnumberposition);
+                //Amount = Ordermap.get(MenuID);
+
+                //null로 들어가는 것을 고려하여야 한다.
+                try {
+
+                        for (int j = 0; j <= toWrapmap.get(bp).size(); j++) {
+                            String menuId = toWrapmap.get(bp).get(j).getOrder_FK_menuId();
+                            int intmenuid = Integer.parseInt(menuId);
+                            if (intmenuid == Integer.parseInt(MenuID)) {
+                                Amount = Integer.parseInt(toWrapmap.get(bp).get(j).getOrder_amount());
+                                Ordermap.put(MenuID, ++Amount);
+                            }
+                        }
+
+                }
+                catch (Exception ex){}
                 OrderList.add(Ordermap);
                 CurrentTimeCall = System.currentTimeMillis();
                 CurrentDateCall = new Date(CurrentTimeCall);
@@ -224,16 +248,37 @@ public class OrderActivity extends AppCompatActivity
 
                 // orderMenuSelectAdapter.add(new Order(String.valueOf(Amount),CurrentTime,CurrentTime, MenuID,"no"));
                 //Adapter = new OrderMenuSelectAdapter();
+
+
+                if (toWrapmap.get(bp) != null) {
+                    Order_menu_List = toWrapmap.get(bp);
+                }
                 Order_menu_List.add(new Order(String.valueOf(Amount),CurrentDate.toString(),CurrentTimeS.toString(), MenuID,String.valueOf(billnumberposition)));
 
-                String bp = String.valueOf(billnumberposition);
+
                 toWrapmap.put(bp, Order_menu_List);
                 Order_menu_List_toWrap.add(toWrapmap);
-                Order_menu_List=toWrapmap.get(bp);
                 orderWrapDataSet.setBillAllData(Order_menu_List);
                 orderWrapDataSet.setBillTitleNumber(bp);
                 orderwraplist.add(orderWrapDataSet);
 
+                try {
+                    int k = orderwraplist.size();
+                    for (int i = 0; i < k; i++) {
+                        for (int j = 0; j <= i; j++) {
+                            if (Integer.parseInt(orderwraplist.get(i).getBillTitleNumber()) == Integer.parseInt(orderwraplist.get(j).getBillTitleNumber())) {
+                                orderwraplist.set(j, orderwraplist.get(i));
+
+                                k++;
+                                if (k == orderwraplist.size() * 2 + 1) {
+                                    orderwraplist.remove(orderwraplist.size() - 1);
+                                }
+                            }
+                        }
+                    }
+                } catch (Exception ec) {
+
+                }
 
 
 
@@ -241,6 +286,8 @@ public class OrderActivity extends AppCompatActivity
                 orderWrapAdapter = new OrderWrapAdapter(orderwraplist, getApplicationContext());
                 billRecyclerView.setLayoutManager(layoutManager);
                 billRecyclerView.setAdapter(orderWrapAdapter);
+
+
 
 /*
                 layoutManager = new LinearLayoutManager(getApplicationContext()); //, LinearLayoutManager.HORIZONTAL, false

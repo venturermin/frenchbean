@@ -1,14 +1,12 @@
 package com.bumslap.bum.order;
 
 import android.content.Context;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumslap.bum.R;
 
@@ -39,7 +37,7 @@ public class OrderWrapAdapter extends RecyclerView.Adapter<OrderWrapAdapterViewH
     }
 
     @Override
-    public void onBindViewHolder(OrderWrapAdapterViewHolder holder,  int position) {
+    public void onBindViewHolder(OrderWrapAdapterViewHolder holder, int position) {
 
         final String billtitlenumber = orderarrayList.get(position).getBillTitleNumber();
         ArrayList billAllData = orderarrayList.get(position).getBillAllData();
@@ -47,15 +45,15 @@ public class OrderWrapAdapter extends RecyclerView.Adapter<OrderWrapAdapterViewH
         holder.orderbilltitlenumber.setText(billtitlenumber);
 
         OrderMenuSelectAdapter orderMenuSelectAdapter = new OrderMenuSelectAdapter(billAllData, orderwrapcontext);
-        try{
-            int a= Integer.parseInt(orderarrayList.get(position).getBillTitleNumber());
+        //try{
+            //int a= Integer.parseInt(orderarrayList.get(position).getBillTitleNumber());
 
-            if (Integer.parseInt(orderarrayList.get(position).getBillTitleNumber()) == position){
+            //if (Integer.parseInt(orderarrayList.get(position).getBillTitleNumber()) == position){
                 holder.orderbilllistrecyclerView.setLayoutManager(new LinearLayoutManager(orderwrapcontext, LinearLayoutManager.VERTICAL, false));
                 holder.orderbilllistrecyclerView.setAdapter(orderMenuSelectAdapter);
-            }
-            }
-            catch (Exception ex){}
+           // }
+           // }
+          //  catch (Exception ex){}
         //holder.orderbilllistrecyclerView.setLayoutManager(new LinearLayoutManager(orderwrapcontext, LinearLayoutManager.VERTICAL, false));
         //holder.orderbilllistrecyclerView.setAdapter(orderMenuSelectAdapter);
 
