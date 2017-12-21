@@ -1,27 +1,23 @@
 package com.bumslap.bum.menuedit;
 
 import android.app.Activity;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumslap.bum.DB.Cost;
 import com.bumslap.bum.R;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
+
 /**
  * Created by jaein on 12/11/17.
  */
-
+/*
 public class IngradientAdapter extends BaseAdapter{
     ArrayList<Cost> list;
     Activity activity;
@@ -94,4 +90,4 @@ public class IngradientAdapter extends BaseAdapter{
     }
 
 
-}
+} */

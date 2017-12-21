@@ -15,7 +15,7 @@ import java.util.ArrayList;
 /**
  * Created by oyoun on 17. 12. 19.
  */
-
+/*
 public class OrderWrapAdapter extends RecyclerView.Adapter<OrderWrapAdapterViewHolder>{
 
     private ArrayList<OrderWrapDataSet> orderarrayList;
@@ -83,3 +83,4 @@ class OrderWrapAdapterViewHolder extends RecyclerView.ViewHolder{
 
     }
 }
+*/

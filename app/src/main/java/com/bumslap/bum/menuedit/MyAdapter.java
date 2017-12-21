@@ -1,6 +1,8 @@
 package com.bumslap.bum.menuedit;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
@@ -11,12 +13,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import com.bumslap.bum.DB.DBProvider;
 import com.bumslap.bum.DB.Menu;
 import com.bumslap.bum.R;
+
+import java.util.ArrayList;
+
 /**
  * Created by min on 12/8/17.
  */
@@ -31,7 +33,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager mLayoutManager;
 
-    public MyAdapter(DBProvider db,int layout, ArrayList<Menu> menulist) {
+    public MyAdapter(DBProvider db, int layout, ArrayList<Menu> menulist) {
         //ASSIGN THEM LOCALLY
         this.db = db;
         this.layout = layout;
@@ -71,12 +73,50 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.mTextUniqueId.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final CharSequence[] items = {"수정", "삭제"};
+                android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(
+                        context);
+                alertDialogBuilder.setTitle("수정및삭제");
+                alertDialogBuilder.setItems(
 
-                db.deleteData(menulist.get(position).getMenu_id());
-                Toast.makeText(context, "Data deleted", Toast.LENGTH_LONG).show();
-                notifyItemRemoved(position);
+                        items,new DialogInterface.OnClickListener()
 
-            }
+                        {
+                            public void onClick(DialogInterface dialog,
+                                                int id) {
+
+                                // 프로그램을 종료한다
+                                switch (id) {
+                                    case 0:
+                                    Intent intent = new Intent(context, MenuUpdateActivity.class);
+                                    intent.putExtra("id",menulist.get(position).getMenu_id());
+
+                                    context.startActivity(intent);
+
+                                        break;
+                                    case 1:
+                                        db.deleteData(menulist.get(position).getMenu_id());
+                                        Toast.makeText(context, "Data deleted", Toast.LENGTH_LONG).show();
+                                        notifyItemRemoved(position);
+                                        break;
+
+                                }
+                                dialog.dismiss();
+                            }
+                        }
+
+                );
+
+                // 다이얼로그 생성
+                android.app.AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // 다이얼로그 보여주기
+                alertDialog.show();
+
+
+
+
+        }
         });
 
     }

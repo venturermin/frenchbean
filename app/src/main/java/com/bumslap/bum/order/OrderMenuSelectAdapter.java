@@ -1,4 +1,4 @@
-package com.bumslap.bum.order;
+/*package com.bumslap.bum.order;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -13,9 +13,7 @@ import com.bumslap.bum.R;
 
 import java.util.ArrayList;
 
-/**
- * Created by oyoun on 17. 12. 18.
- */
+
 
 public class OrderMenuSelectAdapter extends RecyclerView.Adapter<OrderMenuViewHoler> {
     private ArrayList<Order> Menuitems = new ArrayList<>();
@@ -88,4 +86,4 @@ class OrderMenuViewHoler extends RecyclerView.ViewHolder{
 
     }
 
-}
+}*/

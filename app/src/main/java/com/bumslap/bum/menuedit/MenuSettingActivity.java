@@ -16,17 +16,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.bumslap.bum.BuildConfig;
-
 import com.bumslap.bum.DB.DBProvider;
 import com.bumslap.bum.R;
 import com.facebook.stetho.Stetho;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 public class MenuSettingActivity extends AppCompatActivity implements GestureDetector.OnGestureListener {
@@ -41,7 +37,7 @@ public class MenuSettingActivity extends AppCompatActivity implements GestureDet
     private DBProvider db;
     private com.bumslap.bum.DB.DBHelper mDBHelper;
     ArrayList<com.bumslap.bum.DB.Menu> menulist;
-
+    String stringid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,22 +70,23 @@ public class MenuSettingActivity extends AppCompatActivity implements GestureDet
         db = new DBProvider(this);
         db.open();
         menulist = new ArrayList<>();
-        mMyadapter = new MyAdapter(db,R.layout.activity_menu_setting, menulist);
+        mMyadapter = new MyAdapter(db, R.layout.activity_menu_setting, menulist);
         mRecyclerView.setAdapter(mMyadapter);
 
         //already Opened database in MenuUpdateActivity
         //call the retrieve method
-        retrieve();
-        // DeleteData method move on from here to MyAdapter class.
+        retrieve(stringid);
 
+        Intent intent = getIntent();
+        stringid = intent.getExtras().getString("id");
+        //integerId = Integer.parseInt(id);
 
     }
 
     //RETRIEVE = call
-    private void retrieve()
+    private void retrieve(String stringid)
     {
-
-        Cursor cursor =  db.getData("SELECT * FROM MENU_TABLE");
+        Cursor cursor =  db.getData("SELECT * FROM MENU_TABLE WHERE MENU_ID '"+stringid+"';");
         menulist.clear();
         while (cursor.moveToNext()){
             String id = cursor.getString(0);
@@ -162,7 +159,7 @@ public class MenuSettingActivity extends AppCompatActivity implements GestureDet
             CostSetBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mvSetIntent = new Intent(getApplication(), CostSettingActivity.class);
+//                    mvSetIntent = new Intent(getApplication(), CostSettingActivity.class);
                     startActivity(mvSetIntent);
                 }
             });
