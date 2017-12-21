@@ -46,7 +46,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-
+import java.util.Locale;
 
 
 public class OrderActivity extends AppCompatActivity
@@ -198,7 +198,7 @@ public class OrderActivity extends AppCompatActivity
 
                 String MenuID = Menulist.get(position).getMenu_id();
 
-                String Price = Menulist.get(position).getMenu_price().toString();
+                String Price = Menulist.get(position).getMenu_price();
                 int Amount;
 
                 //billRecyclerView.setLayoutManager(layoutManager);
@@ -215,8 +215,8 @@ public class OrderActivity extends AppCompatActivity
                 OrderList.add(Ordermap);
                 CurrentTimeCall = System.currentTimeMillis();
                 CurrentDateCall = new Date(CurrentTimeCall);
-                CurrentDate = new SimpleDateFormat("yyyy-MM-dd");
-                CurrentTimeS = new SimpleDateFormat("hh-mm-ss");
+                CurrentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
+                CurrentTimeS = new SimpleDateFormat("hh-mm-ss", Locale.KOREA);
                 CurrentTime = CurrentDate.format(CurrentDateCall);
                 Order_Amount = Ordermap.get(MenuID);
 

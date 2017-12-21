@@ -28,11 +28,19 @@ public class UserSettingActivity extends AppCompatActivity {
 
 
         user_name = findViewById(R.id.text_username);
-        uid = findViewById(R.id.textView12);
-        String name = user.getDisplayName();
-        String user_id = user.getUid();
-        user_name.setText(name);
-        uid.setText(user_id);
+        uid = findViewById(R.id.text_store);
+        try{
+            String name = user.getDisplayName();
+            String user_id = user.getUid();
+            user_name.setText(name);
+            uid.setText(user_id);
+
+        } catch (NullPointerException e){
+            e.getCause();
+
+        }
+
+
 
 
 

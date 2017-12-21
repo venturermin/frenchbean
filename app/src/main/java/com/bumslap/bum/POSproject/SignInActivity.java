@@ -138,10 +138,8 @@ public class SignInActivity extends AppCompatActivity {
 
     protected void onResume(){
         super.onResume();
-        FontFuntion fontFuntion = new FontFuntion();
-        mTypeface = Typeface.createFromAsset(getAssets(), "fonts/NanumSquareRoundL.ttf");
-        ViewGroup root = (ViewGroup) findViewById(android.R.id.content);
-        fontFuntion.setGlobalFont(root,mTypeface);
+
+
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override

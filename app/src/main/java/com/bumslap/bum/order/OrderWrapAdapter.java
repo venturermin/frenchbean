@@ -27,6 +27,7 @@ public class OrderWrapAdapter extends RecyclerView.Adapter<OrderWrapAdapterViewH
     public OrderWrapAdapter(ArrayList<OrderWrapDataSet> orderarrayList, Context context){
         this.orderarrayList = orderarrayList;
         this.orderwrapcontext = context;
+        notifyDataSetChanged();
     }
 
     @Override

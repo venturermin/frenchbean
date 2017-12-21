@@ -15,18 +15,19 @@
         <activity android:name=".POSproject.SignUpActivity" />
         <activity android:name=".settings.UserSettingActivity" />
         <activity android:name=".POSproject.SignInActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".statistics.BarChartActivity" />
         <activity android:name=".statistics.PieChartDataActivity" />
         <activity android:name=".POSproject.EmailVerifyActivity" />
         <activity android:name=".statistics.PieChartActivity" />
         <activity android:name=".statistics.SalesStatus2Activity" />
-        <activity android:name=".POSproject.MainActivity"></activity>
+        <activity android:name=".POSproject.MainActivity"><intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter></activity>
+        <activity android:name=".menuedit.MenuUpdateActivity"></activity>
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
@@ -34,6 +35,7 @@
 
         <activity android:name=".POSproject.TutorialPage" />
         <activity android:name=".POSproject.PasswordFindActivity"></activity>
+        <activity android:name=".order.OrderActivity"></activity>
     </application>
 
 </manifest>
