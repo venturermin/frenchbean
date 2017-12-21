@@ -70,7 +70,7 @@ public class OrderWrapAdapter extends RecyclerView.Adapter<OrderWrapAdapterViewH
     }
 }
 
-class OrderWrapAdapterViewHolder extends RecyclerView.ViewHolder{
+class OrderWrapAdapterViewHolder extends RecyclerView.ViewHolder {
 
     public RecyclerView orderbilllistrecyclerView;
     public TextView orderbilltitlenumber;
@@ -83,4 +83,6 @@ class OrderWrapAdapterViewHolder extends RecyclerView.ViewHolder{
         orderbilllistrecyclerView = (RecyclerView)view.findViewById(R.id.Bill_order_list);
 
     }
+
+
 }
