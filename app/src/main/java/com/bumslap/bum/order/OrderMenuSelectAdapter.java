@@ -13,9 +13,7 @@ import com.bumslap.bum.R;
 
 import java.util.ArrayList;
 
-/**
- * Created by oyoun on 17. 12. 18.
- */
+
 
 public class OrderMenuSelectAdapter extends RecyclerView.Adapter<OrderMenuViewHoler> {
     private ArrayList<Order> Menuitems = new ArrayList<>();
