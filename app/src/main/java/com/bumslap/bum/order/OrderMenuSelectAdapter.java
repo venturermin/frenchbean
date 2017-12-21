@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumslap.bum.DB.DBforAnalysis;
 import com.bumslap.bum.DB.Order;
@@ -67,6 +68,12 @@ public class OrderMenuSelectAdapter extends RecyclerView.Adapter<OrderMenuViewHo
         holder.Menuname.setText(MenunameDB);
 
         holder.MenuAmount.setText(menuitem.getOrder_amount());
+        holder.setItemClickListener(new ItemClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Toast.makeText(context,String .valueOf(position),Toast.LENGTH_LONG).show();
+            }
+        });
 
     }
 
@@ -77,15 +84,28 @@ public class OrderMenuSelectAdapter extends RecyclerView.Adapter<OrderMenuViewHo
 
 }
 
-class OrderMenuViewHoler extends RecyclerView.ViewHolder{
+class OrderMenuViewHoler extends RecyclerView.ViewHolder implements View.OnClickListener{
 
     public TextView Menuname, MenuAmount;
+    private ItemClickListener itemClickListener;
 
     public OrderMenuViewHoler(View OrderitemView){
         super(OrderitemView);
         Menuname = (TextView)OrderitemView.findViewById(R.id.ordermenuname);
         MenuAmount = (TextView)OrderitemView.findViewById(R.id.ordermenuamount);
+        OrderitemView.setOnClickListener(this);
+
 
     }
+    public void setItemClickListener(ItemClickListener itemClickListener){
+        this.itemClickListener = itemClickListener;
+    }
 
+
+    @Override
+    public void onClick(View view) {
+        itemClickListener.onClick(view,getAdapterPosition());
+
+
+    }
 }

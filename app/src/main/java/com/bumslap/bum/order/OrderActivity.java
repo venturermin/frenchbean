@@ -43,7 +43,7 @@ import java.util.HashMap;
 
 public class OrderActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    int count = 0;
     Intent intent;
     GridView gridView;
     ArrayList<com.bumslap.bum.DB.Menu> Menulist;
@@ -66,6 +66,7 @@ public class OrderActivity extends AppCompatActivity
     HashMap<String, ArrayList<Order>> toWrapmap;
 
     ArrayList<Order> Order_menu_List;
+
     long CurrentTimeCall;
     Date CurrentDateCall;
     SimpleDateFormat CurrentDate;
@@ -128,6 +129,8 @@ public class OrderActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
 
+                orderwraplist.add(orderWrapDataSet);
+
                 billnumberposition = orderwraplist.size()-1;
                 billnumberposition++;
             }
@@ -145,10 +148,6 @@ public class OrderActivity extends AppCompatActivity
         billRecyclerView.setLayoutManager(layoutManager);
         billRecyclerView.setAdapter(Adapter);
         */
-        layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false); //, LinearLayoutManager.HORIZONTAL, false
-        orderWrapAdapter = new OrderWrapAdapter(orderwraplist, getApplicationContext());
-        billRecyclerView.setLayoutManager(layoutManager);
-        billRecyclerView.setAdapter(orderWrapAdapter);
 
         OrderList = new ArrayList<HashMap<String, Integer>>();
         Ordermap = null;
@@ -166,10 +165,7 @@ public class OrderActivity extends AppCompatActivity
 
 
 
-        layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false); //, LinearLayoutManager.HORIZONTAL, false
-        orderWrapAdapter = new OrderWrapAdapter(orderwraplist, getApplicationContext());
-        billRecyclerView.setLayoutManager(layoutManager);
-        billRecyclerView.setAdapter(orderWrapAdapter);
+
 
 
 
@@ -244,6 +240,7 @@ public class OrderActivity extends AppCompatActivity
                 CurrentTime = CurrentDate.format(CurrentDateCall);
                 Order_Amount = Ordermap.get(MenuID);
 
+
                 //billnumberposition = orderWrapAdapter.getBillnumberposition();
 
                 // orderMenuSelectAdapter.add(new Order(String.valueOf(Amount),CurrentTime,CurrentTime, MenuID,"no"));
@@ -261,6 +258,7 @@ public class OrderActivity extends AppCompatActivity
                 orderWrapDataSet.setBillAllData(Order_menu_List);
                 orderWrapDataSet.setBillTitleNumber(bp);
                 orderwraplist.add(orderWrapDataSet);
+
 
                 try {
                     int k = orderwraplist.size();
@@ -282,22 +280,21 @@ public class OrderActivity extends AppCompatActivity
 
 
 
+               if (count<1) {
+                   orderwraplist.add(orderWrapDataSet);
                 layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false); //, LinearLayoutManager.HORIZONTAL, false
                 orderWrapAdapter = new OrderWrapAdapter(orderwraplist, getApplicationContext());
                 billRecyclerView.setLayoutManager(layoutManager);
                 billRecyclerView.setAdapter(orderWrapAdapter);
+                count ++;
+               }
 
-
-
-/*
-                layoutManager = new LinearLayoutManager(getApplicationContext()); //, LinearLayoutManager.HORIZONTAL, false
-                Adapter = new OrderMenuSelectAdapter(Order_menu_List, getApplicationContext());
-                billRecyclerView.setLayoutManager(layoutManager);
-                billRecyclerView.setAdapter(Adapter);
-*/
 
             }
-        });
+
+
+        });//end of Onclick
+
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
