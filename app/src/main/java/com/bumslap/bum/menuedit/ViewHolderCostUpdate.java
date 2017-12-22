@@ -4,6 +4,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.bumslap.bum.R;
 

@@ -62,7 +62,6 @@ public class OrderActivity extends AppCompatActivity
     ArrayList<HashMap<String, Integer>> OrderList;
     HashMap<String, Integer> Ordermap;
 
-    ArrayList<HashMap<String, ArrayList<Order>>> Order_menu_List_toWrap;
     HashMap<String, ArrayList<Order>> toWrapmap;
 
     ArrayList<Order> Order_menu_List;
@@ -82,6 +81,10 @@ public class OrderActivity extends AppCompatActivity
     int billnumberposition=0;
 
     Button addpositionBTN;
+
+    HashMap<String, HashMap<String, Integer>> hashmapInhashmap;
+
+
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -141,12 +144,15 @@ public class OrderActivity extends AppCompatActivity
 
 
         OrderList = new ArrayList<HashMap<String, Integer>>();
-        Ordermap = null;
-        Ordermap = new HashMap<String, Integer>();
+
+
         Order_menu_List = new ArrayList<Order>();
 
-        Order_menu_List_toWrap = new ArrayList<HashMap<String, ArrayList<Order>>>();
-        toWrapmap = null;
+
+        hashmapInhashmap = new HashMap<String, HashMap<String, Integer>>();
+        Ordermap = new HashMap<String, Integer>();
+
+
         toWrapmap = new HashMap<String, ArrayList<Order>>();
 
         orderWrapDataSet = new OrderWrapDataSet();
@@ -202,14 +208,31 @@ public class OrderActivity extends AppCompatActivity
 
                 //billRecyclerView.setLayoutManager(layoutManager);
                 //billRecyclerView.setItemAnimator(new DefaultItemAnimator());
-
+                String bp = String.valueOf(billnumberposition);
                 // billRecyclerView.setAdapter(Adapter);
                 //billRecyclerView.smoothScrollBy(200, 100);
                 Toast.makeText(getApplicationContext(),""+position+"  "+MenuID+" "+Price,Toast.LENGTH_LONG).show();
-                if(Ordermap.get(MenuID)==null){
-                    Ordermap.put(MenuID, 0);
-                }
-                String bp = String.valueOf(billnumberposition);
+
+
+                //if(hashmapInhashmap.size() == (Integer.parseInt(bp)+1) || hashmapInhashmap.size() == 0) {
+                    if (hashmapInhashmap.get(bp) == null) {
+                        Ordermap = new HashMap<String, Integer>();
+                        hashmapInhashmap.put(bp, Ordermap);
+                        if(hashmapInhashmap.get(bp).get(MenuID) == null){
+                            Ordermap.put(MenuID, 0);
+                            hashmapInhashmap.put(bp, Ordermap);
+                        }
+
+
+                    }
+                    Ordermap = hashmapInhashmap.get(bp);
+                    if(Ordermap.get(MenuID) == null){
+                        Ordermap.put(MenuID, 0);
+                    }
+                    hashmapInhashmap.put(bp, Ordermap);
+                    //hashmapInhashmap.put(bp,Ordermap);
+                //}
+
                 //Amount = Ordermap.get(MenuID);
 
                 //null로 들어가는 것을 고려하여야 한다.
@@ -220,20 +243,26 @@ public class OrderActivity extends AppCompatActivity
                             int intmenuid = Integer.parseInt(menuId);
                             if (intmenuid == Integer.parseInt(MenuID)) {
                                 Amount = Integer.parseInt(toWrapmap.get(bp).get(j).getOrder_amount());
+
                                 Ordermap = new HashMap<String, Integer>();
                                 Ordermap.put(MenuID, ++Amount);
+                                hashmapInhashmap.put(bp, Ordermap);
+
+
                             }
                         }
 
                 }
                 catch (Exception ex){}
+
+
                 OrderList.add(Ordermap);
                 CurrentTimeCall = System.currentTimeMillis();
                 CurrentDateCall = new Date(CurrentTimeCall);
                 CurrentDate = new SimpleDateFormat("yyyy-MM-dd");
                 CurrentTimeS = new SimpleDateFormat("hh-mm-ss");
                 CurrentTime = CurrentDate.format(CurrentDateCall);
-                Order_Amount = Ordermap.get(MenuID);
+                Order_Amount = hashmapInhashmap.get(bp).get(MenuID);
                     if (Order_Amount == 0){
                         Order_Amount = 1;
                     }
