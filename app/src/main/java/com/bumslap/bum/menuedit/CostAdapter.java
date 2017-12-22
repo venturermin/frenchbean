@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.bumslap.bum.DB.Cost;
 import com.bumslap.bum.R;
@@ -29,13 +28,13 @@ public class CostAdapter extends RecyclerView.Adapter<ViewHolderCost> {
     public ViewHolderCost onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recyclerview_cost, parent, false);
-
         ViewHolderCost viewHolderCost = new ViewHolderCost(view);
         return viewHolderCost;
     }
 
     @Override
     public void onBindViewHolder(ViewHolderCost holder, int position) {
+
         String IngradientName = arrayList.get(position).getCost_name();
         String IngradientPrice = arrayList.get(position).getCost_price();
         holder.Ingradient_name.setText(IngradientName);
@@ -47,10 +46,4 @@ public class CostAdapter extends RecyclerView.Adapter<ViewHolderCost> {
         return (null != arrayList ? arrayList.size() : 0);
     }
 
-    /*
-    public void removeItem(int position){
-        this.arrayList.remove(position);
-        notifyItemRemoved(position);
-        //notifyDataSetChanged();
-    }*/
 }

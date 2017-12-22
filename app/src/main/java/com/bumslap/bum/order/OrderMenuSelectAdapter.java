@@ -7,16 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-
 import com.bumslap.bum.DB.DBforAnalysis;
 import com.bumslap.bum.DB.Order;
 import com.bumslap.bum.R;
 
 import java.util.ArrayList;
 
-/**
- * Created by oyoun on 17. 12. 18.
- */
+
 
 public class OrderMenuSelectAdapter extends RecyclerView.Adapter<OrderMenuViewHoler> {
     private ArrayList<Order> Menuitems = new ArrayList<>();

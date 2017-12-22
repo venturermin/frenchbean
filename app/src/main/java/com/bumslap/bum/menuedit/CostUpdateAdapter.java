@@ -2,18 +2,16 @@ package com.bumslap.bum.menuedit;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.bumslap.bum.DB.Cost;
-import com.bumslap.bum.POSproject.SignFuntion.FontFuntion;
 import com.bumslap.bum.R;
 
 import java.util.ArrayList;
+
 /**
  * Created by jaein on 12/14/17.
  */
@@ -49,5 +47,11 @@ public class CostUpdateAdapter extends RecyclerView.Adapter<ViewHolderCostUpdate
     @Override
     public int getItemCount() {
         return (null != arrayList ? arrayList.size() : 0);
+    }
+
+    public void removeItem(int position){
+        this.arrayList.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, arrayList.size());
     }
 }

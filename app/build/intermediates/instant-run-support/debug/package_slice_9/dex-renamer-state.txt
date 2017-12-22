@@ -1,0 +1,4 @@
+#Thu Dec 21 18:21:08 VLAT 2017
+base.0=/home/jaein/frenchbean/app/build/intermediates/transforms/dexMerger/debug/9
+path.0=classes.dex
+renamed.0=classes.dex

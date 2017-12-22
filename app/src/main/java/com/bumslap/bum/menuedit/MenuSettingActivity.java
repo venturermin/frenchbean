@@ -22,6 +22,7 @@ import android.widget.LinearLayout;
 import com.bumslap.bum.BuildConfig;
 
 import com.bumslap.bum.DB.DBProvider;
+import com.bumslap.bum.DB.Menu;
 import com.bumslap.bum.R;
 import com.facebook.stetho.Stetho;
 
@@ -41,7 +42,7 @@ public class MenuSettingActivity extends AppCompatActivity implements GestureDet
     private DBProvider db;
     private com.bumslap.bum.DB.DBHelper mDBHelper;
     ArrayList<com.bumslap.bum.DB.Menu> menulist;
-
+    String value = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,35 +61,34 @@ public class MenuSettingActivity extends AppCompatActivity implements GestureDet
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //call intent
                 Intent intent = new Intent(getApplicationContext(), MenuUpdateActivity.class);
+                intent.putExtra("id", value);
                 startActivity(intent);
 
             }
         });
-
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        mLayoutManager = new GridLayoutManager(this, 2);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setHasFixedSize(true);
-
         db = new DBProvider(this);
         db.open();
         menulist = new ArrayList<>();
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 2);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setHasFixedSize(true);
         mMyadapter = new MyAdapter(db,R.layout.activity_menu_setting, menulist);
         mRecyclerView.setAdapter(mMyadapter);
 
         //already Opened database in MenuUpdateActivity
         //call the retrieve method
         retrieve();
-        // DeleteData method move on from here to MyAdapter class.
-
-
     }
 
     //RETRIEVE = call
-    private void retrieve()
+    public void retrieve()
     {
-
         Cursor cursor =  db.getData("SELECT * FROM MENU_TABLE");
         menulist.clear();
         while (cursor.moveToNext()){
@@ -97,13 +97,8 @@ public class MenuSettingActivity extends AppCompatActivity implements GestureDet
             String price = cursor.getString(2);
             String cost = cursor.getString(3);
             byte[] image = cursor.getBlob(4);
-
             menulist.add(new com.bumslap.bum.DB.Menu(id, name, image, price, cost));
-
         }
-
-            mMyadapter.notifyDataSetChanged();
-
     }
 
     @Override
@@ -183,8 +178,8 @@ public class MenuSettingActivity extends AppCompatActivity implements GestureDet
 
 
     public static interface ClickListener{
-        public void onClick(View view, int position);
-        public void onLongClick(View view, int position);
+        public void onClick(View view,int position);
+        public void onLongClick(View view,int position);
     }
     class RecyclerTouchListener implements RecyclerView.OnItemTouchListener{
         private ClickListener clicklistener;
@@ -193,21 +188,21 @@ public class MenuSettingActivity extends AppCompatActivity implements GestureDet
         public RecyclerTouchListener(Context context, final RecyclerView recycleView, final ClickListener clicklistener){
 
             this.clicklistener=clicklistener;
-       gestureDetector=new GestureDetector(context,new GestureDetector.SimpleOnGestureListener(){
-            @Override
-            public boolean onSingleTapUp(MotionEvent e) {
-                return true;
-            }
-
-            @Override
-            public void onLongPress(MotionEvent e) {
-                View child;
-                child = recycleView.findChildViewUnder(e.getX(),e.getY());
-                if(child!=null && clicklistener!=null){
-                    clicklistener.onLongClick(child,recycleView.getChildAdapterPosition(child));
+            gestureDetector=new GestureDetector(context,new GestureDetector.SimpleOnGestureListener(){
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+                    return true;
                 }
-            }
-        });
+
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    View child;
+                    child = recycleView.findChildViewUnder(e.getX(),e.getY());
+                    if(child!=null && clicklistener!=null){
+                        clicklistener.onLongClick(child,recycleView.getChildAdapterPosition(child));
+                    }
+                }
+            });
         }
 
         @Override

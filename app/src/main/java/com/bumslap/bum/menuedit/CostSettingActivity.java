@@ -348,10 +348,12 @@ public class CostSettingActivity extends AppCompatActivity implements GestureDet
                     firIngradient.setCost_FK_menuId(Integer.parseInt(menu_id));
                     dBforAnalysis.addCost(firIngradient);
 
-                    costAllData = dBforAnalysis.getMenuMatchCostData(menu_id);
-                    costUpdateAdapter = new CostUpdateAdapter(costAllData, CostSettingActivity.this);
-                    recyclerView2.setLayoutManager(new LinearLayoutManager(CostSettingActivity.this, LinearLayoutManager.VERTICAL, false));
-                    recyclerView2.setAdapter(costUpdateAdapter);
+
+
+                    //costAllData = dBforAnalysis.getMenuMatchCostData(menu_id);
+                    //costUpdateAdapter = new CostUpdateAdapter(costAllData, CostSettingActivity.this);
+                    //recyclerView2.setLayoutManager(new LinearLayoutManager(CostSettingActivity.this, LinearLayoutManager.VERTICAL, false));
+                    //recyclerView2.setAdapter(costUpdateAdapter);
                 }
             });
             fab3.setOnClickListener(new View.OnClickListener() {
@@ -364,9 +366,6 @@ public class CostSettingActivity extends AppCompatActivity implements GestureDet
                     EditText Ingradient_name;
                     EditText Ingradient_price;
                     recyclerView2 = (RecyclerView)layout.findViewById(R.id.rv);
-                    //arrayList = dBforAnalysis.getAllCostData();
-                    //Ingradient_name = (EditText) findViewById(R.id.editText);
-                    //Ingradient_price = (EditText) findViewById(R.id.editText3);
                     int lengthOfRec = recyclerView2.getChildCount();
                     for (int i=0;i< lengthOfRec; i++){
                         v = recyclerView2.getChildAt(i);
@@ -423,22 +422,20 @@ public class CostSettingActivity extends AppCompatActivity implements GestureDet
                             if (checked == true) {
                                 id = costAllData.get(i).getCost_id().toString();
                                 dBforAnalysis.deleteCost(Integer.parseInt(id));
+                                costUpdateAdapter.removeItem(i);
                             }
                         }
-                        costAllData = dBforAnalysis.getMenuMatchCostData(menu_id);
-                        costUpdateAdapter = new CostUpdateAdapter(costAllData, CostSettingActivity.this);
-                        recyclerView2.setLayoutManager(new LinearLayoutManager(CostSettingActivity.this, LinearLayoutManager.VERTICAL, false));
-                        recyclerView2.setAdapter(costUpdateAdapter);
+                        //costAllData = dBforAnalysis.getMenuMatchCostData(menu_id);
+                        //costUpdateAdapter = new CostUpdateAdapter(costAllData, CostSettingActivity.this);
+                        //recyclerView2.setLayoutManager(new LinearLayoutManager(CostSettingActivity.this, LinearLayoutManager.VERTICAL, false));
+                        //recyclerView2.setAdapter(costUpdateAdapter);
+
                         flag = 0;
 
                     }
                 }
             });
-
-
             colseBtn.setOnClickListener(closeclick);
-
-
 
         } catch (Exception e) {
             e.printStackTrace();
