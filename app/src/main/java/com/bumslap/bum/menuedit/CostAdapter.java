@@ -35,7 +35,6 @@ public class CostAdapter extends RecyclerView.Adapter<ViewHolderCost> {
 
     @Override
     public void onBindViewHolder(ViewHolderCost holder, int position) {
-
         String IngradientName = arrayList.get(position).getCost_name();
         String IngradientPrice = arrayList.get(position).getCost_price();
         holder.Ingradient_name.setText(IngradientName);
@@ -47,4 +46,8 @@ public class CostAdapter extends RecyclerView.Adapter<ViewHolderCost> {
         return (null != arrayList ? arrayList.size() : 0);
     }
 
+    public void changeItem(ArrayList<Cost> position){
+        this.arrayList = position;
+        notifyDataSetChanged();
+    }
 }

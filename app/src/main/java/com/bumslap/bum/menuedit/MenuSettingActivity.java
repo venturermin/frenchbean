@@ -89,16 +89,19 @@ public class MenuSettingActivity extends AppCompatActivity implements GestureDet
     //RETRIEVE = call
     public void retrieve()
     {
-        Cursor cursor =  db.getData("SELECT * FROM MENU_TABLE");
-        menulist.clear();
-        while (cursor.moveToNext()){
-            String id = cursor.getString(0);
-            String name = cursor.getString(1);
-            String price = cursor.getString(2);
-            String cost = cursor.getString(3);
-            byte[] image = cursor.getBlob(4);
-            menulist.add(new com.bumslap.bum.DB.Menu(id, name, image, price, cost));
+        try {
+            Cursor cursor = db.getData("SELECT * FROM MENU_TABLE");
+            menulist.clear();
+            while (cursor.moveToNext()) {
+                String id = cursor.getString(0);
+                String name = cursor.getString(1);
+                String price = cursor.getString(2);
+                String cost = cursor.getString(3);
+                byte[] image = cursor.getBlob(4);
+                menulist.add(new com.bumslap.bum.DB.Menu(id, name, image, price, cost));
+            }
         }
+        catch (Exception e){}
     }
 
     @Override

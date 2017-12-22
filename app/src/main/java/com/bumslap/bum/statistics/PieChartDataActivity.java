@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.bumslap.bum.DB.DBforAnalysis;
 import com.bumslap.bum.DB.Order;
+import com.bumslap.bum.POSproject.MainActivity;
 import com.bumslap.bum.R;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -47,6 +48,7 @@ public class PieChartDataActivity extends AppCompatActivity implements GestureDe
     Intent mvStaIntent;
     Button AmountStastisticBtn, SalesStatisticBtn;
 
+    MainActivity mainActivity;
     DBforAnalysis dBforAnalysis;
     // colors for different sections in pieChart
     public static final int[] MY_COLORS = {
@@ -106,18 +108,20 @@ public class PieChartDataActivity extends AppCompatActivity implements GestureDe
         y = new ArrayList<>();
         x = new ArrayList<>();
         dBforAnalysis = new DBforAnalysis(this, "POS.db", null,1);
+        //dBforAnalysis = new MainActivity().dBforAnalysis;
         ArrayList<Order> order = new ArrayList<Order>();
         order = dBforAnalysis.getAllOrderS();
         for(int p = 0; p < order.size(); p++) {
             String amount = order.get(p).getOrder_amount();
             String Date = order.get(p).getOrder_date();
             String Time = order.get(p).getOrder_time();
+            //String menuname = order.get(p).getOrder_FK_menuId();
 
             y.add(Integer.parseInt(amount));
             x.add(amount);
         }
     }
-    
+
 
     public void setDataForPieChart() {
 

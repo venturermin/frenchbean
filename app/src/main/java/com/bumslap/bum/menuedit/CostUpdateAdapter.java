@@ -43,6 +43,7 @@ public class CostUpdateAdapter extends RecyclerView.Adapter<ViewHolderCostUpdate
         String IngradientPrice = arrayList.get(position).getCost_price();
         holder.Ingradient_name.setText(IngradientName);
         holder.Ingradient_price.setText(IngradientPrice);
+        holder.checkBox.setVisibility(View.INVISIBLE);
 
     }
 
@@ -51,9 +52,9 @@ public class CostUpdateAdapter extends RecyclerView.Adapter<ViewHolderCostUpdate
         return (null != arrayList ? arrayList.size() : 0);
     }
 
-    public void removeItem(int position){
-        this.arrayList.remove(position);
-        notifyItemRemoved(position);
-        notifyItemRangeChanged(position, arrayList.size());
+
+    public void changeItem(ArrayList<Cost> position){
+        this.arrayList = position;
+        notifyDataSetChanged();
     }
 }

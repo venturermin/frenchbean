@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     public ViewPager viewPager;
 
     private List<String> numberList;
-
+    public DBforAnalysis dBforAnalysis;
     //private ViewPagerIndicatorActivity viewPagerIndicatorActivity;
 
 
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(mCardAdapter);
 
 
-
+        dBforAnalysis = new DBforAnalysis(this, "POS.db", null,1);
 
         dotsCount = mCardAdapter.getCount();
         dots = new ImageView[dotsCount];

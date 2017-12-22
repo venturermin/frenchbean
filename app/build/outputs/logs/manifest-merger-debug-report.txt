@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:2:1-52:12
-INJECTED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:2:1-52:12
-INJECTED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:2:1-52:12
-INJECTED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:2:1-52:12
+ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:2:1-56:12
+INJECTED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:2:1-56:12
+INJECTED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:2:1-56:12
+INJECTED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:2:1-56:12
 MERGED from [com.kakao.sdk:usermgmt:1.1.7] /home/jaein/.gradle/caches/transforms-1/files-1.1/usermgmt-1.1.7.aar/b42d485b69a4b4ad9e8beeeb907b748a/AndroidManifest.xml:2:1-15:12
 MERGED from [com.google.firebase:firebase-auth:11.6.2] /home/jaein/.gradle/caches/transforms-1/files-1.1/firebase-auth-11.6.2.aar/69adbd18e3e02503ecbad01830eca322/AndroidManifest.xml:16:1-21:12
 MERGED from [com.google.android.gms:play-services-auth:11.6.2] /home/jaein/.gradle/caches/transforms-1/files-1.1/play-services-auth-11.6.2.aar/7c15563b6bed696d0c0b4467887dbd0c/AndroidManifest.xml:16:1-26:12
@@ -50,20 +50,20 @@ MERGED from [android.arch.lifecycle:runtime:1.0.0] /home/jaein/.gradle/caches/tr
 MERGED from [com.kakao.sdk:util:1.1.7] /home/jaein/.gradle/caches/transforms-1/files-1.1/util-1.1.7.aar/144e2b2ef8c2b0b956e82bddaffe0465/AndroidManifest.xml:2:1-15:12
 MERGED from [com.google.firebase:firebase-analytics-impl-license:11.6.2] /home/jaein/.gradle/caches/transforms-1/files-1.1/firebase-analytics-impl-license-11.6.2.aar/b66daf66bde908bc20a89dc200fdd8c3/AndroidManifest.xml:2:1-6:12
 MERGED from [com.google.firebase:firebase-iid-license:11.6.2] /home/jaein/.gradle/caches/transforms-1/files-1.1/firebase-iid-license-11.6.2.aar/badb11f2f8731a1a9df98bcabcecf2a5/AndroidManifest.xml:2:1-6:12
-INJECTED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:2:1-52:12
-INJECTED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:2:1-52:12
-INJECTED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:2:1-52:12
+INJECTED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:2:1-56:12
+INJECTED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:2:1-56:12
+INJECTED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:2:1-56:12
 	package
 		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:3:5-30
 		INJECTED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml
 		INJECTED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml
 	android:versionName
 		INJECTED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml
-		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:2:1-52:12
+		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:2:1-56:12
 		INJECTED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml
 	android:versionCode
 		INJECTED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml
-		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:2:1-52:12
+		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:2:1-56:12
 		INJECTED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml
 	xmlns:android
 		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:2:11-69
@@ -78,7 +78,7 @@ MERGED from [com.google.firebase:firebase-iid:11.6.2] /home/jaein/.gradle/caches
 	android:name
 		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:5:22-64
 application
-ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:7:5-50:19
+ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:7:5-54:19
 MERGED from [com.google.firebase:firebase-auth:11.6.2] /home/jaein/.gradle/caches/transforms-1/files-1.1/firebase-auth-11.6.2.aar/69adbd18e3e02503ecbad01830eca322/AndroidManifest.xml:19:5-20:19
 MERGED from [com.google.firebase:firebase-auth:11.6.2] /home/jaein/.gradle/caches/transforms-1/files-1.1/firebase-auth-11.6.2.aar/69adbd18e3e02503ecbad01830eca322/AndroidManifest.xml:19:5-20:19
 MERGED from [com.google.android.gms:play-services-auth:11.6.2] /home/jaein/.gradle/caches/transforms-1/files-1.1/play-services-auth-11.6.2.aar/7c15563b6bed696d0c0b4467887dbd0c/AndroidManifest.xml:19:5-25:19
@@ -182,69 +182,69 @@ ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:19:9-21:20
 	android:name
 		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:19:19-62
 activity#com.bumslap.bum.menuedit.MenuSettingActivity
-ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:22:9-27:20
+ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:22:9-24:20
 	android:name
 		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:22:19-63
-intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:23:13-26:29
-action#android.intent.action.MAIN
-ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:24:17-69
-	android:name
-		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:24:25-66
-category#android.intent.category.LAUNCHER
-ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:25:17-77
-	android:name
-		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:25:27-74
 activity#com.bumslap.bum.menuedit.CostSettingActivity
-ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:28:9-30:20
+ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:25:9-27:20
+	android:name
+		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:25:19-63
+activity#com.bumslap.bum.settings.UserSettingActivity
+ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:28:9-66
 	android:name
 		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:28:19-63
-activity#com.bumslap.bum.settings.UserSettingActivity
-ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:31:9-66
-	android:name
-		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:31:19-63
 activity#com.bumslap.bum.POSproject.SignInActivity
+ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:29:9-31:20
+	android:name
+		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:29:19-60
+activity#com.bumslap.bum.statistics.BarChartActivity
 ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:32:9-34:20
 	android:name
-		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:32:19-60
-activity#com.bumslap.bum.statistics.BarChartActivity
+		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:32:19-62
+activity#com.bumslap.bum.statistics.PieChartDataActivity
 ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:35:9-37:20
 	android:name
-		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:35:19-62
-activity#com.bumslap.bum.statistics.PieChartDataActivity
-ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:38:9-69
-	android:name
-		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:38:19-66
+		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:35:19-66
 activity#com.bumslap.bum.POSproject.EmailVerifyActivity
-ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:39:9-68
+ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:38:9-68
 	android:name
-		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:39:19-65
+		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:38:19-65
 activity#com.bumslap.bum.statistics.PieChartActivity
-ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:40:9-65
+ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:39:9-65
 	android:name
-		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:40:19-62
+		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:39:19-62
 activity#com.bumslap.bum.statistics.SalesStatus2Activity
-ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:41:9-69
+ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:40:9-69
 	android:name
-		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:41:19-66
+		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:40:19-66
 activity#com.bumslap.bum.POSproject.MainActivity
-ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:42:9-70
+ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:41:9-46:20
 	android:name
-		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:42:19-58
+		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:41:19-58
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:42:13-45:29
+action#android.intent.action.MAIN
+ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:43:17-69
+	android:name
+		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:43:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:44:17-77
+	android:name
+		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:44:27-74
 meta-data#com.kakao.sdk.AppKey
-ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:44:9-46:64
+ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:48:9-50:64
 	android:value
-		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:46:13-61
+		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:50:13-61
 	android:name
-		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:45:13-48
+		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:49:13-48
 activity#com.bumslap.bum.POSproject.TutorialPage
-ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:48:9-61
+ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:52:9-61
 	android:name
-		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:48:19-58
+		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:52:19-58
 activity#com.bumslap.bum.POSproject.PasswordFindActivity
-ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:49:9-78
+ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:53:9-78
 	android:name
-		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:49:19-66
+		ADDED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml:53:19-66
 uses-sdk
 INJECTED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /home/jaein/frenchbean/app/src/main/AndroidManifest.xml

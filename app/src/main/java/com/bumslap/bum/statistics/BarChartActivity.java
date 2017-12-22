@@ -15,6 +15,7 @@ import android.widget.Button;
 
 import com.bumslap.bum.DB.DBforAnalysis;
 import com.bumslap.bum.DB.Order;
+import com.bumslap.bum.POSproject.MainActivity;
 import com.bumslap.bum.R;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -42,7 +43,7 @@ public class BarChartActivity extends AppCompatActivity implements GestureDetect
                                     g_list, h_list, i_list, j_list, k_list, l_list = null;
     ArrayList<ArrayList<Integer>> K_List;
     DBforAnalysis dBforAnalysis;
-
+    MainActivity mainActivity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +65,7 @@ public class BarChartActivity extends AppCompatActivity implements GestureDetect
         chart.setData(BARDATA);
 
         chart.animateY(3000);
-        // xAxis.setTextSize(23.0f);
+        //xAxis.setTextSize(23.0f);
         xAxis = chart.getXAxis();
         xAxis.setTextSize(1f);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -78,7 +79,7 @@ public class BarChartActivity extends AppCompatActivity implements GestureDetect
         g_list = new ArrayList<>(); h_list = new ArrayList<>(); i_list = new ArrayList<>();
         j_list = new ArrayList<>(); k_list = new ArrayList<>(); l_list = new ArrayList<>();
 
-
+        //dBforAnalysis = new MainActivity().dBforAnalysis;
         Date now = new Date();
         SimpleDateFormat CurrentTime = new SimpleDateFormat("yyyy-MM-dd");
         String s = CurrentTime.format(now);

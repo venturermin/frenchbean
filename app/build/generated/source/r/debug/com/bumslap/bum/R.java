@@ -4287,18 +4287,17 @@ public final class R {
     public static final int notification_template_media_custom=0x7f0c0054;
     public static final int notification_template_part_chronometer=0x7f0c0055;
     public static final int notification_template_part_time=0x7f0c0056;
-    public static final int order_bill_detail_jtem=0x7f0c0057;
-    public static final int order_bill_item=0x7f0c0058;
-    public static final int order_bills_layout=0x7f0c0059;
-    public static final int order_menu_item=0x7f0c005a;
-    public static final int recyclerview_cost=0x7f0c005b;
-    public static final int recyclerviewupdate_cost=0x7f0c005c;
-    public static final int select_dialog_item_material=0x7f0c005d;
-    public static final int select_dialog_multichoice_material=0x7f0c005e;
-    public static final int select_dialog_singlechoice_material=0x7f0c005f;
-    public static final int simple_spinner_item=0x7f0c0060;
-    public static final int support_simple_spinner_dropdown_item=0x7f0c0061;
-    public static final int tooltip=0x7f0c0062;
+    public static final int order_bill_item=0x7f0c0057;
+    public static final int order_bills_layout=0x7f0c0058;
+    public static final int order_menu_item=0x7f0c0059;
+    public static final int recyclerview_cost=0x7f0c005a;
+    public static final int recyclerviewupdate_cost=0x7f0c005b;
+    public static final int select_dialog_item_material=0x7f0c005c;
+    public static final int select_dialog_multichoice_material=0x7f0c005d;
+    public static final int select_dialog_singlechoice_material=0x7f0c005e;
+    public static final int simple_spinner_item=0x7f0c005f;
+    public static final int support_simple_spinner_dropdown_item=0x7f0c0060;
+    public static final int tooltip=0x7f0c0061;
   }
   public static final class menu {
     public static final int activity_order_drawer=0x7f0d0000;
