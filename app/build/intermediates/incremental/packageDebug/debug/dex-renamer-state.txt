@@ -1,0 +1,4 @@
+#Fri Dec 22 10:10:13 KST 2017
+base.0=/Users/mac/AndroidStudioProjects/HoneyPosProject/app/build/intermediates/transforms/dexMerger/debug/0
+path.0=classes.dex
+renamed.0=classes.dex
